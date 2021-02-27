@@ -17,11 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-public class User implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class User{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	@Column(name="userid")
@@ -35,11 +31,6 @@ public class User implements Serializable {
 		//@ManyToMany(mappedBy="users",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 		@JsonIgnore
 		
-	
-	
-	
-	
-	
 	
 	public User() {
 		super();
@@ -59,9 +50,6 @@ public class User implements Serializable {
 		this.fname = fname;
 		this.lname = lname;
 	
-	}
-	public void setId(Long id) {
-		this.id = id;
 	}
 	public String getEmail() {
 		return email;

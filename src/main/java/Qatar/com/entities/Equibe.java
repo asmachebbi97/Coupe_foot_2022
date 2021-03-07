@@ -75,15 +75,17 @@ public class Equibe implements Serializable {
 
 	
 	
+	
 	public int getNbrePoint() {
 		return nbrePoint;
 	}
 
+
 	public void setNbrePoint(int nbrePoint) {
-		this.nbrePoint =nbrePoint;
+		this.nbrePoint = nbrePoint;
 	}
 
-	
+
 	public int getRang() {
 		return nbreJoueur;
 	}
@@ -92,14 +94,6 @@ public class Equibe implements Serializable {
 		this.rang =rang;
 	}
 	
-	
-	public int getnbreJoueur() {
-		return nbreJoueur;
-	}
-
-	public void setnbreJoueur(int nbreJoueur) {
-		this.nbreJoueur =nbreJoueur;
-	}
 
 
 	public String getNomEquipe() {
@@ -147,6 +141,12 @@ public class Equibe implements Serializable {
 		return "Equibe [id=" + id + ", nomEquipe=" + nomEquipe + ", pays=" + pays + ", nbreJoueur=" + nbreJoueur
 				+ ", nbrePoint=" + nbrePoint + ", rang=" + rang + ", imageequipe=" + imageequipe + ", mk=" + mk + "]";
 	}
+
+
+
+
+
+	
 
 	
 

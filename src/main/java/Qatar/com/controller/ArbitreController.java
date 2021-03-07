@@ -55,7 +55,7 @@ public class ArbitreController {
 	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
 	}
 	@DeleteMapping("/arbitre/{id}")
-	public ResponseEntity<?> deletearbitre(@PathVariable(value = "id") Long arbitreId) {
+	public ResponseEntity<?> deleteArbitre(@PathVariable(value = "id") Long arbitreId) {
 	    Arbitre arbitre = ( arbitrev).findById(arbitreId).orElseThrow(null);
 	            //.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
@@ -68,7 +68,6 @@ public class ArbitreController {
 	@PutMapping("/arbitre/{id}")
 	public Arbitre updateArbitre(@PathVariable(value = "id") Long Id,
 	                                        @Valid @RequestBody Arbitre arbitreDetails) {
-
 	    Arbitre arbitre=  arbitrev.findById(Id).orElseThrow(null);
 	    
 	   

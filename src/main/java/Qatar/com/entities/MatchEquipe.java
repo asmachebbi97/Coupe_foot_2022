@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-public class MatchEquipe {
+public class MatchEquipe   {
 
 
 	
@@ -79,6 +79,11 @@ public class MatchEquipe {
 
 	public void setNbbut(int nbbut) {
 		this.nbbut = nbbut;
+	}
+
+	@Override
+	public String toString() {
+		return "MatchEquipe [id=" + id + ", matchs=" + matchs + ", equipes=" + equipes + ", nbbut=" + nbbut + "]";
 	}
  
     

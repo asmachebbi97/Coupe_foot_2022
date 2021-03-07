@@ -36,8 +36,7 @@ public class EquibeController {
 	@Autowired 
 	equibeRepository equiberepo;
 	
-	@Autowired
-	//matchRepository matchRepo;
+
 	
 	
 	
@@ -79,7 +78,7 @@ public class EquibeController {
 		equibe.setPays(EquibeDetails.getPays());
 		equibe.setNbrePoint(EquibeDetails.getNbrePoint());
 		equibe.setRang(EquibeDetails.getRang());
-		equibe.setnbreJoueur(EquibeDetails.getnbreJoueur());
+		equibe.setNbreJoueur(EquibeDetails.getNbrePoint());
 		equibe.setImageequipe(EquibeDetails.getImageequipe());
 		
 		Equibe updatedEquibe = equiberepo.save(equibe);
@@ -89,11 +88,11 @@ public class EquibeController {
 	
 	@DeleteMapping("/equibe/{id}")
 	public ResponseEntity<?> deleteEquibe(@PathVariable(value = "id") Long equibeId) {
-	    Equibe equibe = equiberepo.findById(equibeId).orElseThrow(null);
+	    Equibe equibe = (equiberepo).findById(equibeId).orElseThrow(null);
 	            //.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
 	   // userRepository.deleteById(userId);
-	    equiberepo.delete(equibe);
+	   ( equiberepo).delete(equibe);
 
 	    return ResponseEntity.ok().build();
 	}

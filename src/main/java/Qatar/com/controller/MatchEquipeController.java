@@ -69,7 +69,7 @@ public class MatchEquipeController {
 
 	
 	@GetMapping("/Match_Equipe/{eid}")
-	public MatchEquipe getUserById(@PathVariable(value = "eid") Long eId) {
+	public MatchEquipe getMatchEquipeById(@PathVariable(value = "eid") Long eId) {
 	
 	return  matchequipeR.findById(eId).orElseThrow(null);
 	           
@@ -79,9 +79,9 @@ public class MatchEquipeController {
 	@DeleteMapping("/MatchEquipe/{mid}")
 	public ResponseEntity<?> deleteMatchEquipe(@PathVariable(value = "mid") Long mId) {
 	
-		MatchEquipe me =matchequipeR.findById(mId).orElseThrow(null);
+		MatchEquipe me =(matchequipeR).findById(mId).orElseThrow(null);
 	          
-		matchequipeR.delete(me);
+		(matchequipeR).delete(me);
 
 	    return ResponseEntity.ok().build();
 	}

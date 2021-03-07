@@ -60,6 +60,7 @@ public class UserController {
 	    return userv.findById(Id).orElseThrow(null);
 	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
 	}
+	
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long userId) {
 	    User user = userv.findById(userId).orElseThrow(null);
@@ -82,26 +83,15 @@ public class UserController {
 	    user.setPwd(userDetails.getPwd());
 	    user.setFname(userDetails.getFname());
 	    user.setLname(userDetails.getLname());
-
+	    user.setImageuser(userDetails.getImageuser());
+	    
 	    User updatedUser = userv.save(user);
 	    return updatedUser;
 	}
 	
 	
 
-	@PutMapping("/affecter/{uid}/{pid}")
-	public void affecterUser(@PathVariable(value = "uid") Long Id,
-			@PathVariable(value = "pid") Long Idp) {
-
-	    
-	   List<User> list=new ArrayList<>();
-		   User user = userv.findById(Id).get();
-		   list.add(user);
-		   
-		
 	
-
-	}
 	
 	
 	

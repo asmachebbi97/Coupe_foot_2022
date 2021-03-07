@@ -28,6 +28,7 @@ import Qatar.com.repository.equibeRepository;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api") 
 public class EquibeController {
 	
@@ -74,12 +75,13 @@ public class EquibeController {
 		Equibe equibe = equiberepo.findById(Id).orElseThrow(null);
 	    
 	   
-		equibe.setNomEquibe(EquibeDetails.getNomEquibe());
+		equibe.setNomEquipe(EquibeDetails.getNomEquipe());
 		equibe.setPays(EquibeDetails.getPays());
 		equibe.setNbrePoint(EquibeDetails.getNbrePoint());
 		equibe.setRang(EquibeDetails.getRang());
 		equibe.setnbreJoueur(EquibeDetails.getnbreJoueur());
-
+		equibe.setImageequipe(EquibeDetails.getImageequipe());
+		
 		Equibe updatedEquibe = equiberepo.save(equibe);
 	    return updatedEquibe;
 	}

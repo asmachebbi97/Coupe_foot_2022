@@ -1,44 +1,51 @@
 package Qatar.com.entities;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import antlr.collections.List;
+
+
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
-public class Matche{
+public class Matche  implements Serializable{
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)  
 @Column(name="Matchid")
 private Long idmatch;
 private String nom;
 private Date date;
-private int heure;
-private Long lieu;
+private String heure;
+private String lieu;
 private String stade;
-private Long idequipe1;
-private Long idequipe2;
-private Long idarbitre;
+
 public Matche(){
 	super();
 }
 
-public Matche(Long idmatch, String nom, Date date, int heure, Long lieu, String stade, Long idequipe1, Long idequipe2,
-		Long idarbitre) {
-	super();
-	this.idmatch = idmatch;
-	this.nom = nom;
-	this.date = date;
-	this.heure = heure;
-	this.lieu = lieu;
-	this.stade = stade;
-	this.idequipe1 = idequipe1;
-	this.idequipe2 = idequipe2;
-	this.idarbitre = idarbitre;
-}
+
+
+@OneToMany(mappedBy="mats",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+private Set<Arbitre> mk = new HashSet<Arbitre>();
+
+@OneToMany(mappedBy="matchs",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+private Set<MatchEquipe> m = new HashSet<MatchEquipe>();
+
+
 
 public Long getIdmatch() {
 	return idmatch;
@@ -58,16 +65,16 @@ public Date getDate() {
 public void setDate(Date date) {
 	this.date = date;
 }
-public int getHeure() {
+public String getHeure() {
 	return heure;
 }
-public void setHeure(int heure) {
+public void setHeure(String heure) {
 	this.heure = heure;
 }
-public Long getLieu() {
+public String getLieu() {
 	return lieu;
 }
-public void setLieu(Long lieu) {
+public void setLieu(String lieu) {
 	this.lieu = lieu;
 }
 public String getStade() {
@@ -76,23 +83,11 @@ public String getStade() {
 public void setStade(String stade) {
 	this.stade = stade;
 }
-public Long getIdequipe1() {
-	return idequipe1;
+@Override
+public String toString() {
+	return "Matche [idmatch=" + idmatch + ", nom=" + nom + ", date=" + date + ", heure=" + heure + ", lieu=" + lieu
+			+ ", stade=" + stade + ", mk=" + mk + ", m=" + m + "]";
 }
-public void setIdequipe1(Long idequipe1) {
-	this.idequipe1 = idequipe1;
-}
-public Long getIdequipe2() {
-	return idequipe2;
-}
-public void setIdequipe2(Long idequipe2) {
-	this.idequipe2 = idequipe2;
-}
-public Long getIdarbitre() {
-	return idarbitre;
-}
-public void setIdarbitre(Long idarbitre) {
-	this.idarbitre = idarbitre;
-}
+
 
 }

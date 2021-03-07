@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
+
+
 @Entity
 public class Arbitre implements Serializable {
 	
@@ -20,12 +23,18 @@ public class Arbitre implements Serializable {
 	private String role;
 	private String salaire;
 	private String imageArbitre;
-	public Arbitre(String nom, String role, String salaire, String imageArbitre) {
-		super();
-		this.nom = nom;
-		this.role = role;
-		this.salaire = salaire;
-		this.imageArbitre = imageArbitre;
+	
+	@ManyToOne 
+	Matche mats;
+
+	
+	
+	
+	public Matche getMatchs() {
+		return mats;
+	}
+	public void setMatchs(Matche mats) {
+		this.mats = mats;
 	}
 	public Arbitre save(@Valid Arbitre arbitre) {
 		// TODO Auto-generated method stub
@@ -67,8 +76,10 @@ public class Arbitre implements Serializable {
 	@Override
 	public String toString() {
 		return "Arbitre [id=" + id + ", nom=" + nom + ", role=" + role + ", salaire=" + salaire + ", imageArbitre="
-				+ imageArbitre + "]";
+				+ imageArbitre + ", matchs=" + mats + "]";
 	}
+
+
 	
 
 }

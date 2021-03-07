@@ -1,23 +1,21 @@
 package Qatar.com.entities;
 
-import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-public class User{
+public class User  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	@Column(name="userid")
@@ -26,31 +24,20 @@ public class User{
 	private String pwd;
 	private String fname;
 	private String lname;
+	private String imageuser;
 	
 	//@ManyToMany(mappedBy="users",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 		//@ManyToMany(mappedBy="users",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 		@JsonIgnore
 		
 	
-	public User() {
-		super();
-	}
+	
 	public Long getId() {
 		return id;
 	}
 	
 	
-	
-	
-	public User(Long id, String email, String pwd, String fname, String lname ) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.pwd = pwd;
-		this.fname = fname;
-		this.lname = lname;
-	
-	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -75,11 +62,28 @@ public class User{
 	public void setLname(String lname) {
 		this.lname = lname;
 	}
+
+
+
+	public String getImageuser() {
+		return imageuser;
+	}
+
+
+
+	public void setImageuser(String imageuser) {
+		this.imageuser = imageuser;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", pwd=" + pwd + ", fname=" + fname + ", lname=" + lname
-				 + "]";
+				+ ", imageuser=" + imageuser + "]";
 	}
+	
+	
 	
 	
 	

@@ -28,6 +28,7 @@ import Qatar.com.repository.equibeRepository;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api") 
 public class EquibeController {
 	
@@ -35,8 +36,7 @@ public class EquibeController {
 	@Autowired 
 	equibeRepository equiberepo;
 	
-	@Autowired
-	//matchRepository matchRepo;
+
 	
 	
 	
@@ -74,12 +74,13 @@ public class EquibeController {
 		Equibe equibe = equiberepo.findById(Id).orElseThrow(null);
 	    
 	   
-		equibe.setNomEquibe(EquibeDetails.getNomEquibe());
+		equibe.setNomEquipe(EquibeDetails.getNomEquipe());
 		equibe.setPays(EquibeDetails.getPays());
 		equibe.setNbrePoint(EquibeDetails.getNbrePoint());
 		equibe.setRang(EquibeDetails.getRang());
-		equibe.setnbreJoueur(EquibeDetails.getnbreJoueur());
-
+		equibe.setNbreJoueur(EquibeDetails.getNbrePoint());
+		equibe.setImageequipe(EquibeDetails.getImageequipe());
+		
 		Equibe updatedEquibe = equiberepo.save(equibe);
 	    return updatedEquibe;
 	}
@@ -87,11 +88,11 @@ public class EquibeController {
 	
 	@DeleteMapping("/equibe/{id}")
 	public ResponseEntity<?> deleteEquibe(@PathVariable(value = "id") Long equibeId) {
-	    Equibe equibe = equiberepo.findById(equibeId).orElseThrow(null);
+	    Equibe equibe = (equiberepo).findById(equibeId).orElseThrow(null);
 	            //.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
 	   // userRepository.deleteById(userId);
-	    equiberepo.delete(equibe);
+	   ( equiberepo).delete(equibe);
 
 	    return ResponseEntity.ok().build();
 	}

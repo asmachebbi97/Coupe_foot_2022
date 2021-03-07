@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 
-@EnableJpaRepositories(basePackages="Qatar.com")
+
 @SpringBootApplication
 public class Coupe2022Application {
 

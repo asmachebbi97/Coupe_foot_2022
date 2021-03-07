@@ -31,7 +31,7 @@ public class ArbitreController {
 	@Autowired
 	arbitreRepository arbitrev;
 	@GetMapping("/arbitres")
-	public List<Arbitre> getAllUsers() {
+	public List<Arbitre> getAllArbitres() {
 		List<Arbitre> pro = arbitrev.findAll();
 
 		for (Arbitre arbitre : pro) {
@@ -55,7 +55,7 @@ public class ArbitreController {
 	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
 	}
 	@DeleteMapping("/arbitre/{id}")
-	public ResponseEntity<?> deletearbitre(@PathVariable(value = "id") Long arbitreId) {
+	public ResponseEntity<?> deleteArbitre(@PathVariable(value = "id") Long arbitreId) {
 	    Arbitre arbitre = ( arbitrev).findById(arbitreId).orElseThrow(null);
 	            //.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
@@ -66,15 +66,16 @@ public class ArbitreController {
 	}
 	
 	@PutMapping("/arbitre/{id}")
-	public Arbitre updateArbitre(@PathVariable(value = "Arbitreid") Long Id,
+	public Arbitre updateArbitre(@PathVariable(value = "id") Long Id,
 	                                        @Valid @RequestBody Arbitre arbitreDetails) {
-
-	    Arbitre arbitre= ( arbitrev).findById(Id).orElseThrow(null);
+	    Arbitre arbitre=  arbitrev.findById(Id).orElseThrow(null);
 	    
 	   
 	    arbitre.setNom(arbitreDetails.getNom());
 	    arbitre.setRole(arbitreDetails.getRole());
 	    arbitre.setImageArbitre(arbitreDetails.getImageArbitre());
+	    arbitre.setSalaire(arbitreDetails.getSalaire());
+	   
 
 	    Arbitre updatedArbitre = arbitrev.save(arbitre);
 	    return updatedArbitre;
@@ -82,20 +83,10 @@ public class ArbitreController {
 	
 	
 
-	@PutMapping("/affecter/{uid}/{pid}")
-	public void affecterArbitre(@PathVariable(value = "uid") Long Id,
-			@PathVariable(value = "pid") Long Idp) {
 
-	    
-	   List<Arbitre> list=new ArrayList<>();
-		   Arbitre arbitre =  arbitrev.findById(Id).get();
-		   list.add(arbitre);
-		   
 		
 	
 
-	}
-	
 	
 
 }

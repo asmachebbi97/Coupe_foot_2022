@@ -1,8 +1,9 @@
-package Quatar.com.dao;
+package Qatar.com.dao;
 
-import org.apache.catalina.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import Qatar.com.entities.User;
 
 
 @Repository

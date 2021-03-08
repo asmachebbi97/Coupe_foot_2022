@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
+
 @Entity
 public class User  implements Serializable{
 	@Id
@@ -92,6 +93,13 @@ public class User  implements Serializable{
 		return "User [id=" + id + ", email=" + email + ", pwd=" + pwd + ", fname=" + fname + ", lname=" + lname
 				+ ", imageuser=" + imageuser + "]";
 	}
+	public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 	
 	
 	

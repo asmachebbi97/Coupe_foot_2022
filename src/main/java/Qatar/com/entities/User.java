@@ -1,32 +1,22 @@
 package Qatar.com.entities;
 
 
-import java.io.Serializable;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.Set;
 
 
 
 
 
 @Entity
-public class User  implements Serializable{
+public class User  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	@Column(name="userid")
 	private Long id;
+	private String username;
 	private String email;
 	private String pwd;
 	private String fname;
@@ -47,7 +37,17 @@ public class User  implements Serializable{
 		return id;
 	}
 	
+	public User() {
+		super();
+	}
 	
+	public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
 	public String getEmail() {
 		return email;

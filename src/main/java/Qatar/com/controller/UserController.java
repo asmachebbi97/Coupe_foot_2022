@@ -23,8 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import Qatar.com.controller.UserController;
 import Qatar.com.entities.User;
+import Qatar.com.entities.UserDto;
 import Qatar.com.repository.userRepository;
-
+import Qatar.com.service.UserService;
 
 
 @RestController
@@ -32,14 +33,14 @@ import Qatar.com.repository.userRepository;
 @RequestMapping("/api")
 public class UserController {
 	private static final Logger logger = LogManager.getLogger(UserController.class);
-	@Autowired
-	userRepository userv;
+	  @Autowired
+	private UserService userService;
 	
 	
 	 @PreAuthorize("hasRole('ADMIN')")
 	    @RequestMapping(value="/users", method = RequestMethod.GET)
 	public List<User> getAllUsers() {
-		List<User> pro = userv.findAll();
+		List<User> pro = userService.findAll();
 
 		for (User user : pro) {
 			logger.debug("log:     "+user);
@@ -50,52 +51,44 @@ public class UserController {
 	    
 	}
 
-	@PostMapping("/addusert")
-	public User createUser(@Valid @RequestBody User user) {
-	    return userv.save(user);
+	@PostMapping("/signup")
+	public User createUser(@Valid @RequestBody UserDto user) {
+	    return userService.save(user);
 	}
 
-	
+	@PreAuthorize("hasRole('USER')")
 	@GetMapping("/user/{id}")
 	public User getUserById(@PathVariable(value = "id") Long Id) {
-	    return userv.findById(Id).orElseThrow(null);
+	    return userService.findById(Id);
 	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
 	}
-	
+	@PreAuthorize("hasRole('USER')")
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long userId) {
-	    User user = userv.findById(userId).orElseThrow(null);
+	    User user = userService.findById(userId);
 	            //.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
 	   // userRepository.deleteById(userId);
-	    userv.delete(user);
+	    userService.delete(user.getId());
 
 	    return ResponseEntity.ok().build();
 	}
-	
+	@PreAuthorize("hasRole('USER')")
 	@PutMapping("/user/{id}")
 	public User updateUser(@PathVariable(value = "id") Long Id,
 	                                        @Valid @RequestBody User userDetails) {
 
-	    User user = userv.findById(Id).orElseThrow(null);
+	    User user =userService.findById(Id);
 	    
-	   
 	    user.setEmail(userDetails.getEmail());
-	    user.setPwd(userDetails.getPwd());
+	    user.setPassword(userDetails.getPassword());
 	    user.setFname(userDetails.getFname());
 	    user.setLname(userDetails.getLname());
 	    user.setImageuser(userDetails.getImageuser());
 	    
-	    User updatedUser = userv.save(user);
+	    User updatedUser = userService.save(user);
 	    return updatedUser;
 	}
-	
-	
-
-	
-	
-	
-	
 	
 	
 }

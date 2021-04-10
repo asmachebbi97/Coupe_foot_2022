@@ -36,18 +36,14 @@ public class Equibe implements Serializable {
 	private int nbrePoint;
 	private int rang;
 	private String imageequipe;
-	
-	
-
+	private int nbMatchJoués;
+	private int nbVictoires;
+	private int nbPertes;
+	private int nbEgalités;
 
 
 	@OneToMany(mappedBy="equipes",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<MatchEquipe> mk = new HashSet<MatchEquipe>();
-
-    
-	
-	
-
 
 	public Equibe() {
 		super();
@@ -135,12 +131,54 @@ public class Equibe implements Serializable {
 		this.imageequipe = imageequipe;
 	}
 
+	public int getNbMatchJoués() {
+		return nbMatchJoués;
+	}
+
+
+	public void setNbMatchJoués(int nbMatchJoués) {
+		this.nbMatchJoués = nbMatchJoués;
+	}
+
+
+	public int getNbVictoires() {
+		return nbVictoires;
+	}
+
+
+	public void setNbVictoires(int nbVictoires) {
+		this.nbVictoires = nbVictoires;
+	}
+
+
+	public int getNbPertes() {
+		return nbPertes;
+	}
+
+
+	public void setNbPertes(int nbPertes) {
+		this.nbPertes = nbPertes;
+	}
+
+
+	public int getNbEgalités() {
+		return nbEgalités;
+	}
+
+
+	public void setNbEgalités(int nbEgalités) {
+		this.nbEgalités = nbEgalités;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Equibe [id=" + id + ", nomEquipe=" + nomEquipe + ", pays=" + pays + ", nbreJoueur=" + nbreJoueur
-				+ ", nbrePoint=" + nbrePoint + ", rang=" + rang + ", imageequipe=" + imageequipe + ", mk=" + mk + "]";
+				+ ", nbrePoint=" + nbrePoint + ", rang=" + rang + ", imageequipe=" + imageequipe + ", nbMatchJoués="
+				+ nbMatchJoués + ", nbVictoires=" + nbVictoires + ", nbPertes=" + nbPertes + ", nbEgalités="
+				+ nbEgalités + ", mk=" + mk + "]";
 	}
+
 
 
 

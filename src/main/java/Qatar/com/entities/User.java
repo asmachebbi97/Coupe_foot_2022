@@ -18,7 +18,7 @@ public class User  {
 	private Long id;
 	private String username;
 	private String email;
-	private String pwd;
+	private String password;
 	private String fname;
 	private String lname;
 	private String imageuser;
@@ -55,11 +55,11 @@ public class User  {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPwd() {
-		return pwd;
+	public String getPassword() {
+		return password;
 	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getFname() {
 		return fname;
@@ -90,7 +90,7 @@ public class User  {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", pwd=" + pwd + ", fname=" + fname + ", lname=" + lname
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", fname=" + fname + ", lname=" + lname
 				+ ", imageuser=" + imageuser + "]";
 	}
 	public Set<Role> getRoles() {

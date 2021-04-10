@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import Qatar.com.entities.Equibe;
@@ -27,8 +29,6 @@ import Qatar.com.entities.Matche;
 import Qatar.com.repository.MatchEquipeRepository;
 import Qatar.com.repository.MatchRepository;
 import Qatar.com.repository.equibeRepository;
-
-
 
 
 @RestController
@@ -47,36 +47,30 @@ public class MatchEquipeController {
 	MatchRepository matchR;
 
 	
-	
-	@GetMapping("/match_equipes")
+	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	//@GetMapping("/match_equipes")
+	@RequestMapping(value="/match_equipes", method = RequestMethod.GET)
 	public List<MatchEquipe> getAllMatchEquipe() {
 		List<MatchEquipe> eq = matchequipeR.findAll();
 
-		for (MatchEquipe me : eq) {
-			logger.debug("log:     "+me);
-			System.out.println("sysout:   "+me);
-			
-		}
+	
         return eq;
 	    }
 	
-	
-	
-	@PostMapping("/addMatchEquipe")
-	public MatchEquipe createMatchEquipe(@Valid @RequestBody MatchEquipe me) {
-	    return matchequipeR.save(me);
-	}
 
-	
-	@GetMapping("/Match_Equipe/{eid}")
+
+	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	//@GetMapping("/Match_Equipe/{eid}")
+	@RequestMapping(value="/Match_Equipe/{eid}", method = RequestMethod.GET)
 	public MatchEquipe getMatchEquipeById(@PathVariable(value = "eid") Long eId) {
 	
 	return  matchequipeR.findById(eId).orElseThrow(null);
 	           
 	}
 	
-	
-	@DeleteMapping("/MatchEquipe/{mid}")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	//@DeleteMapping("/MatchEquipe/{mid}")
+	@RequestMapping(value="/MatchEquipe/{mid}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteMatchEquipe(@PathVariable(value = "mid") Long mId) {
 	
 		MatchEquipe me =(matchequipeR).findById(mId).orElseThrow(null);
@@ -87,7 +81,55 @@ public class MatchEquipeController {
 	}
 	
 
-	@PutMapping("/affecterMatchEquipe/{mid}")
+	 @PreAuthorize("hasRole('ADMIN')")
+	//@PostMapping("/addMatchEquipe/{eid}/{mid}")
+	 @RequestMapping(value="/addMatchEquipe/{eid}/{mid}", method = RequestMethod.POST)
+	public MatchEquipe createMatchEquipe(@PathVariable(value = "eid") Long Id,
+			@PathVariable(value = "mid") Long Idm, @Valid @RequestBody MatchEquipe matchEquipeDetails) {
+
+	    
+	       MatchEquipe me=new MatchEquipe();
+		   Equibe equipe = equipeR.findById(Id).orElseThrow(null);
+		   Matche match=matchR.findById(Idm).orElseThrow(null);
+	
+		   
+		      me.setMatch(match);
+			  me.setEquipe(equipe);
+		      me.setNbbut(matchEquipeDetails.getNbbut());
+
+		  //User affecterUser= 
+		   return matchequipeR.save(me);
+		//return affecterUser;
+	
+
+	}
+	 @PreAuthorize("hasRole('ADMIN')")
+	//@PutMapping("/affecterMatchEquipe/{meid}/{eid}/{mid}")
+	 @RequestMapping(value="/affecterMatchEquipe/{meid}/{eid}/{mid}", method = RequestMethod.PUT)
+	public MatchEquipe  affecterMatchEquipe(@PathVariable(value = "meid") Long meId,
+			@PathVariable(value = "eid") Long Id,
+			@PathVariable(value = "mid") Long Idm, @Valid @RequestBody MatchEquipe matchEquipeDetails) {
+
+	    
+	   MatchEquipe me =matchequipeR.findById(meId).orElseThrow(null);
+	   Equibe equipe = equipeR.findById(Id).get();
+	   Matche match=matchR.findById(Idm).get();
+
+	   
+	      me.setMatch(match);
+		  me.setEquipe(equipe);
+	      me.setNbbut(matchEquipeDetails.getNbbut());
+
+	  //User affecterUser= 
+	   return matchequipeR.save(me);
+
+	}
+	/*@PostMapping("/addMatchEquipe")
+	public MatchEquipe createMatchEquipe(@Valid @RequestBody MatchEquipe me) {
+	    return matchequipeR.save(me);
+	}*/
+	
+	/*@PutMapping("/affecterMatchEquipe/{mid}")
 	public MatchEquipe  affecterMatchEquipe(@PathVariable(value = "mid") Long mId,
 			@Valid @RequestBody MatchEquipe matchEquipeDetails) 
 	{
@@ -106,7 +148,5 @@ public class MatchEquipeController {
        
 	    return updatedMatchEquipe;
 
-	}
-	
-
+	}*/
 }

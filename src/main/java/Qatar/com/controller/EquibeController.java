@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import Qatar.com.controller.EquibeController;
@@ -36,35 +38,37 @@ public class EquibeController {
 
 	
 	
-	
-	@GetMapping("/Equibes")
+	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	//@GetMapping("/Equibes")
+	@RequestMapping(value="/Equibes", method = RequestMethod.GET)
 	public List<Equibe> getAllEquibe() {
 		List<Equibe> pro = equiberepo.findAll();
-		for (Equibe equibe : pro) {
-			logger.debug("log:     "+equibe);
-			System.out.println("sysout:   "+equibe);
-			
-		}
+
 
         return pro;
 	    
 	}
-	
-	@GetMapping("/Equibe/{id}")
+	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	//@GetMapping("/Equibe/{id}")
+	@RequestMapping(value="/Equibe/{id}", method = RequestMethod.GET)
+
 	public Equibe getEquibeById(@PathVariable(value = "id") Long Id) {
 	    return equiberepo.findById(Id).orElseThrow(null);
 	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
 	}
 	
-	
-	@PostMapping("/addEquibe")
+	@PreAuthorize("hasRole('ADMIN')")
+	//@PostMapping("/addEquibe")
+	@RequestMapping(value="/addEquibe", method = RequestMethod.POST)
+
 	public Equibe createEquibe(@Valid @RequestBody Equibe equibe) {
 	    return equiberepo.save(equibe); 
 	}
 	
 	
-	
-	@PutMapping("/UpdateEquibe/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	//@PutMapping("/UpdateEquibe/{id}")
+	@RequestMapping(value="/UpdateEquibe/{id}", method = RequestMethod.PUT)
 	public Equibe updateEquibe(@PathVariable(value = "id") Long Id,
 	                                        @Valid @RequestBody Equibe EquibeDetails) {
 
@@ -77,13 +81,17 @@ public class EquibeController {
 		equibe.setRang(EquibeDetails.getRang());
 		equibe.setNbreJoueur(EquibeDetails.getNbrePoint());
 		equibe.setImageequipe(EquibeDetails.getImageequipe());
-		
+		equibe.setNbMatchJoués(EquibeDetails.getNbMatchJoués());
+		equibe.setNbPertes(EquibeDetails.getNbPertes());
+		equibe.setNbVictoires(EquibeDetails.getNbVictoires());
+		equibe.setNbEgalités(EquibeDetails.getNbEgalités());
 		Equibe updatedEquibe = equiberepo.save(equibe);
 	    return updatedEquibe;
 	}
 	
-	
-	@DeleteMapping("/equibe/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	//@DeleteMapping("/equibe/{id}")
+	@RequestMapping(value="/equibe/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteEquibe(@PathVariable(value = "id") Long equibeId) {
 	    Equibe equibe = (equiberepo).findById(equibeId).orElseThrow(null);
 	            //.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));

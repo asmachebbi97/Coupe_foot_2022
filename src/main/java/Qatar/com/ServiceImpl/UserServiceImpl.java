@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		if(user == null){
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
-		return new org.springframework.security.core.userdetails.User(user.getFname(), user.getPwd(), getAuthority(user));
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
 	}
 
 	private Set<SimpleGrantedAuthority> getAuthority(User user) {
@@ -62,19 +62,35 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 	@Override
 	public User findOne(String username) {
-		return (User) userDao.findByUsername(username);
+		return userDao.findByUsername(username);
 	}
 
 	@Override
 	public User findById(Long id) {
-		return (User) userDao.findById(id).get();
+		return userDao.findById(id).get();
 	}
 
 	@Override
     public User save(UserDto user) {
 	    User newUser = new User();
-	    newUser.setFname(user.getUsername());
-	    newUser.setPwd(bcryptEncoder.encode(user.getPassword()));
+	    newUser.setUsername(user.getUsername());
+	    newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+	    newUser.setFname(user.getFname());
+	    newUser.setLname(user.getLname());
+	    newUser.setEmail(user.getEmail());
+	    newUser.setImageuser(user.getImageuser());
+        return userDao.save(newUser);
+    }
+	
+	@Override
+    public User save(User user) {
+	    User newUser = new User();
+	    newUser.setUsername(user.getUsername());
+	    newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+	    newUser.setFname(user.getFname());
+	    newUser.setLname(user.getLname());
+	    newUser.setEmail(user.getEmail());
+	    newUser.setImageuser(user.getImageuser());
         return userDao.save(newUser);
     }
 }

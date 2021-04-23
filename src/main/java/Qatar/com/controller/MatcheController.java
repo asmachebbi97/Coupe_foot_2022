@@ -35,7 +35,7 @@ public class MatcheController {
 	MatchRepository MatchR;
 	
 	
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@RequestMapping(value="/Matche", method = RequestMethod.GET)
 	//@GetMapping("/Matche")
 	public List<Matche> getAllMatche() {
@@ -44,20 +44,20 @@ public class MatcheController {
         return mat;
 	    				
 	}
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	//@PostMapping("/addMatche")
 	@RequestMapping(value="/addMatche", method = RequestMethod.POST)
 	public Matche createMatch(@Valid @RequestBody Matche mat) {
 	    return MatchR.save(mat);
 	}
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	//@GetMapping("/Matche/{id}")
 	@RequestMapping(value="/Matche/{id}", method = RequestMethod.GET)
 	public Matche getMatchById(@PathVariable(value = "id") Long Id) {
 	    return MatchR.findById(Id).orElseThrow(null);
 	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
 	}
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	//@PutMapping("/Match/{id}")
 	@RequestMapping(value="/Match/{id}", method = RequestMethod.PUT)
 	public Matche updateMatch(@PathVariable(value = "id") Long Id,
@@ -78,7 +78,7 @@ public class MatcheController {
 	
 	
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	//@DeleteMapping("/Matche/{id}")
 	@RequestMapping(value="/Matche/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteMatche(@PathVariable(value = "id") Long MatcheId) {

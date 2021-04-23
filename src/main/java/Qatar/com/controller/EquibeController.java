@@ -38,7 +38,7 @@ public class EquibeController {
 
 	
 	
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	//@GetMapping("/Equibes")
 	@RequestMapping(value="/Equibes", method = RequestMethod.GET)
 	public List<Equibe> getAllEquibe() {
@@ -48,7 +48,7 @@ public class EquibeController {
         return pro;
 	    
 	}
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	//@GetMapping("/Equibe/{id}")
 	@RequestMapping(value="/Equibe/{id}", method = RequestMethod.GET)
 
@@ -57,7 +57,7 @@ public class EquibeController {
 	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	//@PostMapping("/addEquibe")
 	@RequestMapping(value="/addEquibe", method = RequestMethod.POST)
 
@@ -66,7 +66,7 @@ public class EquibeController {
 	}
 	
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	//@PutMapping("/UpdateEquibe/{id}")
 	@RequestMapping(value="/UpdateEquibe/{id}", method = RequestMethod.PUT)
 	public Equibe updateEquibe(@PathVariable(value = "id") Long Id,

@@ -81,7 +81,7 @@ public class MatchEquipeController {
 	}
 	
 
-	 @PreAuthorize("hasRole('ADMIN')")
+	// @PreAuthorize("hasRole('ADMIN')")
 	//@PostMapping("/addMatchEquipe/{eid}/{mid}")
 	 @RequestMapping(value="/addMatchEquipe/{eid}/{mid}", method = RequestMethod.POST)
 	public MatchEquipe createMatchEquipe(@PathVariable(value = "eid") Long Id,

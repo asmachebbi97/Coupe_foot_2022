@@ -33,13 +33,13 @@ public class MatchEquipe   {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	@Column(name="meid")
 	private Long id;
-    
+	@JsonIgnore
 	@ManyToOne
 	
     private Matche matchs;
  
 
-
+	@JsonIgnore
     @ManyToOne
      private Equibe equipes;
 

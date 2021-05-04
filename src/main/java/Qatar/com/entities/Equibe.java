@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import antlr.collections.List;
 
@@ -36,12 +37,12 @@ public class Equibe implements Serializable {
 	private int nbrePoint;
 	private int rang;
 	private String imageequipe;
-	private int nbMatchJoués;
+	private int nbMatchJoues;
 	private int nbVictoires;
 	private int nbPertes;
-	private int nbEgalités;
+	private int nbEgalites;
 
-
+	@JsonIgnore
 	@OneToMany(mappedBy="equipes",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<MatchEquipe> mk = new HashSet<MatchEquipe>();
 
@@ -50,46 +51,17 @@ public class Equibe implements Serializable {
 	}
 
 	
+
 	public Long getId() {
 		return id;
 	}
+
+
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	
-
-	
-	public String getPays() {
-		return pays;
-	}
-
-	public void setPays(String pays) {
-		this.pays = pays;
-	}
-
-	
-	
-	
-	public int getNbrePoint() {
-		return nbrePoint;
-	}
-
-
-	public void setNbrePoint(int nbrePoint) {
-		this.nbrePoint = nbrePoint;
-	}
-
-
-	public int getRang() {
-		return nbreJoueur;
-	}
-
-	public void setRang(int rang) {
-		this.rang =rang;
-	}
-	
 
 
 	public String getNomEquipe() {
@@ -97,9 +69,23 @@ public class Equibe implements Serializable {
 	}
 
 
+
 	public void setNomEquipe(String nomEquipe) {
 		this.nomEquipe = nomEquipe;
 	}
+
+
+
+	public String getPays() {
+		return pays;
+	}
+
+
+
+	public void setPays(String pays) {
+		this.pays = pays;
+	}
+
 
 
 	public int getNbreJoueur() {
@@ -107,38 +93,59 @@ public class Equibe implements Serializable {
 	}
 
 
+
 	public void setNbreJoueur(int nbreJoueur) {
 		this.nbreJoueur = nbreJoueur;
 	}
 
 
-	public Set<MatchEquipe> getMk() {
-		return mk;
+
+	public int getNbrePoint() {
+		return nbrePoint;
 	}
 
 
-	public void setMk(Set<MatchEquipe> mk) {
-		this.mk = mk;
+
+	public void setNbrePoint(int nbrePoint) {
+		this.nbrePoint = nbrePoint;
 	}
-	
+
+
+
+	public int getRang() {
+		return rang;
+	}
+
+
+
+	public void setRang(int rang) {
+		this.rang = rang;
+	}
+
+
 
 	public String getImageequipe() {
 		return imageequipe;
 	}
 
 
+
 	public void setImageequipe(String imageequipe) {
 		this.imageequipe = imageequipe;
 	}
 
-	public int getNbMatchJoués() {
-		return nbMatchJoués;
+
+
+	public int getNbMatchJoues() {
+		return nbMatchJoues;
 	}
 
 
-	public void setNbMatchJoués(int nbMatchJoués) {
-		this.nbMatchJoués = nbMatchJoués;
+
+	public void setNbMatchJoues(int nbMatchJoues) {
+		this.nbMatchJoues = nbMatchJoues;
 	}
+
 
 
 	public int getNbVictoires() {
@@ -146,9 +153,11 @@ public class Equibe implements Serializable {
 	}
 
 
+
 	public void setNbVictoires(int nbVictoires) {
 		this.nbVictoires = nbVictoires;
 	}
+
 
 
 	public int getNbPertes() {
@@ -156,27 +165,49 @@ public class Equibe implements Serializable {
 	}
 
 
+
 	public void setNbPertes(int nbPertes) {
 		this.nbPertes = nbPertes;
 	}
 
 
-	public int getNbEgalités() {
-		return nbEgalités;
+
+	public int getNbEgalites() {
+		return nbEgalites;
 	}
 
 
-	public void setNbEgalités(int nbEgalités) {
-		this.nbEgalités = nbEgalités;
+
+	public void setNbEgalites(int nbEgalites) {
+		this.nbEgalites = nbEgalites;
 	}
+
+
+
+	public Set<MatchEquipe> getMk() {
+		return mk;
+	}
+
+
+
+	public void setMk(Set<MatchEquipe> mk) {
+		this.mk = mk;
+	}
+
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 
 
 	@Override
 	public String toString() {
 		return "Equibe [id=" + id + ", nomEquipe=" + nomEquipe + ", pays=" + pays + ", nbreJoueur=" + nbreJoueur
 				+ ", nbrePoint=" + nbrePoint + ", rang=" + rang + ", imageequipe=" + imageequipe + ", nbMatchJoués="
-				+ nbMatchJoués + ", nbVictoires=" + nbVictoires + ", nbPertes=" + nbPertes + ", nbEgalités="
-				+ nbEgalités + ", mk=" + mk + "]";
+				+ nbMatchJoues + ", nbVictoires=" + nbVictoires + ", nbPertes=" + nbPertes + ", nbEgalités="
+				+ nbEgalites + ", mk=" + mk + "]";
 	}
 
 

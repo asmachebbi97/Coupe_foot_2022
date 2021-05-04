@@ -36,7 +36,7 @@ import Qatar.com.repository.equibeRepository;
 @RequestMapping("/api")
 
 public class MatchEquipeController {
-	private static final Logger logger = LogManager.getLogger(UserController.class);
+	private static final Logger logger = LogManager.getLogger(AuthController.class);
 	@Autowired
 	MatchEquipeRepository matchequipeR;
 	
@@ -81,7 +81,7 @@ public class MatchEquipeController {
 	}
 	
 
-	// @PreAuthorize("hasRole('ADMIN')")
+	 @PreAuthorize("hasRole('ADMIN')")
 	//@PostMapping("/addMatchEquipe/{eid}/{mid}")
 	 @RequestMapping(value="/addMatchEquipe/{eid}/{mid}", method = RequestMethod.POST)
 	public MatchEquipe createMatchEquipe(@PathVariable(value = "eid") Long Id,

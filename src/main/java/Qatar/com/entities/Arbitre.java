@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Arbitre implements Serializable {
@@ -23,7 +25,7 @@ public class Arbitre implements Serializable {
 	private String role;
 	private String salaire;
 	private String imageArbitre;
-	
+	@JsonIgnore
 	@ManyToOne 
 	Matche mats;
 

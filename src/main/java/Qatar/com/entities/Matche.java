@@ -38,10 +38,10 @@ public Matche(){
 }
 
 
-
+@JsonIgnore
 @OneToMany(mappedBy="mats",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 private Set<Arbitre> mk = new HashSet<Arbitre>();
-
+@JsonIgnore
 @OneToMany(mappedBy="matchs",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 private Set<MatchEquipe> m = new HashSet<MatchEquipe>();
 

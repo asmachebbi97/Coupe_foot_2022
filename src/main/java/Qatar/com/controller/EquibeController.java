@@ -31,14 +31,14 @@ import Qatar.com.repository.equibeRepository;
 @RequestMapping("/api") 
 public class EquibeController {
 	
-	private static final Logger logger = LogManager.getLogger(UserController.class);
+	private static final Logger logger = LogManager.getLogger(AuthController.class);
 	@Autowired 
 	equibeRepository equiberepo;
 	
 
 	
 	
-	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	//@GetMapping("/Equibes")
 	@RequestMapping(value="/Equibes", method = RequestMethod.GET)
 	public List<Equibe> getAllEquibe() {
@@ -48,7 +48,7 @@ public class EquibeController {
         return pro;
 	    
 	}
-	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	//@GetMapping("/Equibe/{id}")
 	@RequestMapping(value="/Equibe/{id}", method = RequestMethod.GET)
 
@@ -57,7 +57,7 @@ public class EquibeController {
 	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
 	}
 	
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	//@PostMapping("/addEquibe")
 	@RequestMapping(value="/addEquibe", method = RequestMethod.POST)
 
@@ -66,7 +66,7 @@ public class EquibeController {
 	}
 	
 	
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	//@PutMapping("/UpdateEquibe/{id}")
 	@RequestMapping(value="/UpdateEquibe/{id}", method = RequestMethod.PUT)
 	public Equibe updateEquibe(@PathVariable(value = "id") Long Id,
@@ -81,10 +81,10 @@ public class EquibeController {
 		equibe.setRang(EquibeDetails.getRang());
 		equibe.setNbreJoueur(EquibeDetails.getNbrePoint());
 		equibe.setImageequipe(EquibeDetails.getImageequipe());
-		equibe.setNbMatchJoués(EquibeDetails.getNbMatchJoués());
+		equibe.setNbMatchJoues(EquibeDetails.getNbMatchJoues());
 		equibe.setNbPertes(EquibeDetails.getNbPertes());
 		equibe.setNbVictoires(EquibeDetails.getNbVictoires());
-		equibe.setNbEgalités(EquibeDetails.getNbEgalités());
+		equibe.setNbEgalites(EquibeDetails.getNbEgalites());
 		Equibe updatedEquibe = equiberepo.save(equibe);
 	    return updatedEquibe;
 	}

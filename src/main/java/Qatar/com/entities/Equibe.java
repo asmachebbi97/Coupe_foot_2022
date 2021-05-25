@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -36,11 +37,13 @@ public class Equibe implements Serializable {
 	private int nbreJoueur;
 	private int nbrePoint;
 	private int rang;
+	@Lob
 	private String imageequipe;
 	private int nbMatchJoues;
 	private int nbVictoires;
 	private int nbPertes;
 	private int nbEgalites;
+	private TypePool pool;
 
 	@JsonIgnore
 	@OneToMany(mappedBy="equipes",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
@@ -184,17 +187,7 @@ public class Equibe implements Serializable {
 
 
 
-	public Set<MatchEquipe> getMk() {
-		return mk;
-	}
-
-
-
-	public void setMk(Set<MatchEquipe> mk) {
-		this.mk = mk;
-	}
-
-
+	
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -202,28 +195,27 @@ public class Equibe implements Serializable {
 
 
 
-	@Override
-	public String toString() {
-		return "Equibe [id=" + id + ", nomEquipe=" + nomEquipe + ", pays=" + pays + ", nbreJoueur=" + nbreJoueur
-				+ ", nbrePoint=" + nbrePoint + ", rang=" + rang + ", imageequipe=" + imageequipe + ", nbMatchJoués="
-				+ nbMatchJoues + ", nbVictoires=" + nbVictoires + ", nbPertes=" + nbPertes + ", nbEgalités="
-				+ nbEgalites + ", mk=" + mk + "]";
+	public TypePool getPool() {
+		return pool;
 	}
 
 
 
+	public void setPool(TypePool pool) {
+		this.pool = pool;
+	}
 
 
 
-	
+	@Override
+	public String toString() {
+		return "Equibe [id=" + id + ", nomEquipe=" + nomEquipe + ", pays=" + pays + ", nbreJoueur=" + nbreJoueur
+				+ ", nbrePoint=" + nbrePoint + ", rang=" + rang + ", imageequipe=" + imageequipe + ", nbMatchJoues="
+				+ nbMatchJoues + ", nbVictoires=" + nbVictoires + ", nbPertes=" + nbPertes + ", nbEgalites="
+				+ nbEgalites + ", pool=" + pool + ", mk=" + mk + "]";
+	}
 
-	
 
-	
 
-	
+	}
 
-	
-	
-
-}

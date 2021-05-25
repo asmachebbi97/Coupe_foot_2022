@@ -2,6 +2,7 @@ package Qatar.com.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import Qatar.com.entities.Arbitre;
+import Qatar.com.entities.Matche;
 import Qatar.com.repository.arbitreRepository;
 
 @RestController
@@ -33,7 +35,7 @@ public class ArbitreController {
 	@Autowired
 	arbitreRepository arbitrev;
 	
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	//@GetMapping("/arbitres")
 	@RequestMapping(value="/arbitres", method = RequestMethod.GET)
 	public List<Arbitre> getAllArbitres() {
@@ -42,14 +44,14 @@ public class ArbitreController {
         return pro;
 	    
 	}
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	//@PostMapping("/addarbitre")
 	@RequestMapping(value="/addarbitre", method = RequestMethod.POST)
 	public Arbitre createArbitre(@Valid @RequestBody Arbitre arbitre) {
 	    return  arbitrev.save(arbitre);
 	}
 
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	//@GetMapping("/arbitre/{id}")
 	@RequestMapping(value="/arbitre/{id}", method = RequestMethod.GET)
 	public Arbitre getArbitreById(@PathVariable(value = "id") Long Id) {
@@ -57,7 +59,26 @@ public class ArbitreController {
 	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	
+	
+	
+	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	//@GetMapping("/arbitre/{id}")
+	@RequestMapping(value="/arbitreMatch/{id}", method = RequestMethod.GET)
+	public Set<Matche> getArbitreMatch(@PathVariable(value = "id") Long Id) {
+	    
+		Arbitre arbitre = arbitrev.findById(Id).orElseThrow(null);
+		
+		return arbitre.getMats(); 
+	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
+	}
+	
+	
+	
+	
+	
+	
+	//@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value="/arbitre/{id}", method = RequestMethod.DELETE)
 	//@DeleteMapping("/arbitre/{id}")
 	public ResponseEntity<?> deleteArbitre(@PathVariable(value = "id") Long arbitreId) {
@@ -69,7 +90,7 @@ public class ArbitreController {
 
 	    return ResponseEntity.ok().build();
 	}
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	//@PutMapping("/arbitre/{id}")
 	@RequestMapping(value="/arbitre/{id}", method = RequestMethod.PUT)
 	public Arbitre updateArbitre(@PathVariable(value = "id") Long Id,

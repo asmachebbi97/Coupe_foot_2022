@@ -33,22 +33,18 @@ public class MatchEquipe   {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	@Column(name="meid")
 	private Long id;
+	
+	
 	@JsonIgnore
 	@ManyToOne
-	
     private Matche matchs;
- 
-
-	@JsonIgnore
-    @ManyToOne
+	@ManyToOne
      private Equibe equipes;
 
  
     @Column
     private int nbbut;
-    public Matche getMatch() {
-		return matchs;
-	}
+   
 
 	public void setMatch(Matche matchs) {
 		this.matchs = matchs;

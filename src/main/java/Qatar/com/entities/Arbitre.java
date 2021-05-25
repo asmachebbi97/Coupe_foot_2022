@@ -1,13 +1,19 @@
 package Qatar.com.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,23 +30,28 @@ public class Arbitre implements Serializable {
 	private String nom;
 	private String role;
 	private String salaire;
+	@Lob
 	private String imageArbitre;
+	
 	@JsonIgnore
-	@ManyToOne 
-	Matche mats;
+	@OneToMany(mappedBy="mk",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+	private Set<Matche> mats = new HashSet<Matche>();
+	
 
 	
-	
-	
-	public Matche getMatchs() {
-		return mats;
+
+	public Arbitre() {
+		
 	}
-	public void setMatchs(Matche mats) {
+	
+	public Arbitre(Long id, String nom, String role, String salaire, String imageArbitre, Set<Matche> mats) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.role = role;
+		this.salaire = salaire;
+		this.imageArbitre = imageArbitre;
 		this.mats = mats;
-	}
-	public Arbitre save(@Valid Arbitre arbitre) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	public Long getId() {
 		return id;
@@ -79,6 +90,12 @@ public class Arbitre implements Serializable {
 	public String toString() {
 		return "Arbitre [id=" + id + ", nom=" + nom + ", role=" + role + ", salaire=" + salaire + ", imageArbitre="
 				+ imageArbitre + ", matchs=" + mats + "]";
+	}
+	public Set<Matche> getMats() {
+		return mats;
+	}
+	public void setMats(Set<Matche> mats) {
+		this.mats = mats;
 	}
 
 

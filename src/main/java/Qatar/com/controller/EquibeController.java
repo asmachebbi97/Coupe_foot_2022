@@ -1,4 +1,5 @@
 package Qatar.com.controller;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import Qatar.com.controller.EquibeController;
 import Qatar.com.entities.Equibe;
+import Qatar.com.entities.TypePool;
 //import Qatar.com.entities.Match;
 import Qatar.com.repository.equibeRepository;
 //import Qatar.com.repository.matchRepository;
@@ -36,9 +38,68 @@ public class EquibeController {
 	equibeRepository equiberepo;
 	
 
+	@RequestMapping(value="/EquibesA", method = RequestMethod.GET)
+	public List<Equibe> getEquipegroupeA() {
+		List<Equibe> pro = equiberepo.findAll();
+		List<Equibe> GA =new ArrayList<Equibe>();
+        for(int i=0;i<pro.size();i++)
+        {
+        	if(pro.get(i).getPool()==TypePool.A)
+        	{
+        		GA.add(pro.get(i));
+        	}
+        }
+
+        return GA;
+	    
+	}
 	
-	
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	@RequestMapping(value="/EquibesB", method = RequestMethod.GET)
+	public List<Equibe> getEquipegroupeB() {
+		List<Equibe> pro = equiberepo.findAll();
+		List<Equibe> GA =new ArrayList<Equibe>();
+        for(int i=0;i<pro.size();i++)
+        {
+        	if(pro.get(i).getPool()==TypePool.B)
+        	{
+        		GA.add(pro.get(i));
+        	}
+        }
+
+        return GA;
+	    
+	}
+	@RequestMapping(value="/EquibesC", method = RequestMethod.GET)
+	public List<Equibe> getEquipegroupeC() {
+		List<Equibe> pro = equiberepo.findAll();
+		List<Equibe> GA =new ArrayList<Equibe>();
+        for(int i=0;i<pro.size();i++)
+        {
+        	if(pro.get(i).getPool()==TypePool.C)
+        	{
+        		GA.add(pro.get(i));
+        	}
+        }
+
+        return GA;
+	    
+	}
+	@RequestMapping(value="/EquibesD", method = RequestMethod.GET)
+	public List<Equibe> getEquipegroupeD() {
+		List<Equibe> pro = equiberepo.findAll();
+		List<Equibe> GA =new ArrayList<Equibe>();
+        for(int i=0;i<pro.size();i++)
+        {
+        	if(pro.get(i).getPool()==TypePool.D)
+        	{
+        		GA.add(pro.get(i));
+        	}
+        }
+
+        return GA;
+	    
+	}
+	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	//@GetMapping("/Equibes")
 	@RequestMapping(value="/Equibes", method = RequestMethod.GET)
 	public List<Equibe> getAllEquibe() {
@@ -48,7 +109,7 @@ public class EquibeController {
         return pro;
 	    
 	}
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	//@GetMapping("/Equibe/{id}")
 	@RequestMapping(value="/Equibe/{id}", method = RequestMethod.GET)
 
@@ -57,7 +118,7 @@ public class EquibeController {
 	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	//@PostMapping("/addEquibe")
 	@RequestMapping(value="/addEquibe", method = RequestMethod.POST)
 
@@ -66,7 +127,7 @@ public class EquibeController {
 	}
 	
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	//@PutMapping("/UpdateEquibe/{id}")
 	@RequestMapping(value="/UpdateEquibe/{id}", method = RequestMethod.PUT)
 	public Equibe updateEquibe(@PathVariable(value = "id") Long Id,
@@ -85,11 +146,12 @@ public class EquibeController {
 		equibe.setNbPertes(EquibeDetails.getNbPertes());
 		equibe.setNbVictoires(EquibeDetails.getNbVictoires());
 		equibe.setNbEgalites(EquibeDetails.getNbEgalites());
+		equibe.setPool(EquibeDetails.getPool());
 		Equibe updatedEquibe = equiberepo.save(equibe);
 	    return updatedEquibe;
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	//@DeleteMapping("/equibe/{id}")
 	@RequestMapping(value="/equibe/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteEquibe(@PathVariable(value = "id") Long equibeId) {

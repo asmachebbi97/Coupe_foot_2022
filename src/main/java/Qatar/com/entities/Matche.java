@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,10 +39,11 @@ public Matche(){
 }
 
 
-@JsonIgnore
-@OneToMany(mappedBy="mats",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
-private Set<Arbitre> mk = new HashSet<Arbitre>();
-@JsonIgnore
+//@JsonIgnore
+@ManyToOne
+Arbitre mk; 
+
+
 @OneToMany(mappedBy="matchs",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 private Set<MatchEquipe> m = new HashSet<MatchEquipe>();
 
@@ -83,10 +85,21 @@ public String getStade() {
 public void setStade(String stade) {
 	this.stade = stade;
 }
-@Override
-public String toString() {
-	return "Matche [idmatch=" + idmatch + ", nom=" + nom + ", date=" + date + ", heure=" + heure + ", lieu=" + lieu
-			+ ", stade=" + stade + ", mk=" + mk + ", m=" + m + "]";
+
+
+public Arbitre getMk() {
+	return mk;
+}
+public void setMk(Arbitre mk) {
+	this.mk = mk;
+}
+
+
+public Set<MatchEquipe> getM() {
+	return m;
+}
+public void setM(Set<MatchEquipe> m) {
+	this.m = m;
 }
 
 

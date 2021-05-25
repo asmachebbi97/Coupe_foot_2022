@@ -17,12 +17,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import Qatar.com.repository.MatchRepository;
+import Qatar.com.repository.arbitreRepository;
+import Qatar.com.entities.Arbitre;
 import Qatar.com.entities.Equibe;
 import Qatar.com.entities.Matche;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -34,35 +38,52 @@ public class MatcheController {
 	@Autowired 
 	MatchRepository MatchR;
 	
+	@Autowired 
+	arbitreRepository ArbitreR;
 	
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	
+	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@RequestMapping(value="/Matche", method = RequestMethod.GET)
-	//@GetMapping("/Matche")
 	public List<Matche> getAllMatche() {
 		List<Matche> mat = MatchR.findAll();
 
         return mat;
 	    				
 	}
-	@PreAuthorize("hasRole('ADMIN')")
-	//@PostMapping("/addMatche")
-	@RequestMapping(value="/addMatche", method = RequestMethod.POST)
-	public Matche createMatch(@Valid @RequestBody Matche mat) {
+	// @PreAuthorize("hasRole('ADMIN')")
+	@RequestMapping(value="/addMatche/{idA}", method = RequestMethod.POST)
+	public Matche createMatch(@PathVariable(value = "idA") Long IdA , 
+			@Valid @RequestBody Matche MatcheDetails) {
+		Arbitre arbitre = ArbitreR.findById(IdA).orElseThrow(null);;
+       Matche mat= new Matche();
+	    
+	    mat.setNom(MatcheDetails.getNom());
+	    mat.setDate(MatcheDetails.getDate());
+	    mat.setLieu(MatcheDetails.getLieu());
+	    mat.setHeure(MatcheDetails.getHeure());
+	    mat.setStade(MatcheDetails.getStade());
+	    mat.setMk(arbitre);
+	    
+
+	    
+	    
+	    
 	    return MatchR.save(mat);
 	}
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-	//@GetMapping("/Matche/{id}")
+	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@RequestMapping(value="/Matche/{id}", method = RequestMethod.GET)
 	public Matche getMatchById(@PathVariable(value = "id") Long Id) {
 	    return MatchR.findById(Id).orElseThrow(null);
+	    
+	    
+	    
 	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
 	}
-	@PreAuthorize("hasRole('ADMIN')")
-	//@PutMapping("/Match/{id}")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value="/Match/{id}", method = RequestMethod.PUT)
 	public Matche updateMatch(@PathVariable(value = "id") Long Id,
 	                                        @Valid @RequestBody Matche MatcheDetails) {
-
+		
 	    Matche mat = MatchR.findById(Id).orElseThrow(null);
 	    
 	   
@@ -71,6 +92,8 @@ public class MatcheController {
 	    mat.setLieu(MatcheDetails.getLieu());
 	    mat.setHeure(MatcheDetails.getHeure());
 	    mat.setStade(MatcheDetails.getStade());
+	    mat.setMk(MatcheDetails.getMk());
+	    
 
 	    Matche updatedMatch = MatchR.save(mat);
 	    return updatedMatch;
@@ -78,8 +101,7 @@ public class MatcheController {
 	
 	
 	
-	@PreAuthorize("hasRole('ADMIN')")
-	//@DeleteMapping("/Matche/{id}")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value="/Matche/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteMatche(@PathVariable(value = "id") Long MatcheId) {
 	    Matche mat = MatchR.findById(MatcheId).orElseThrow(null);
